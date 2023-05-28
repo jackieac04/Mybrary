@@ -30,14 +30,24 @@ router.post('/', async (req, res) => {
       name: req.body.name
     })
     try {
-        const newAuthor = await author.save()
-        //res.redirect(`/authors/${newAuthor.id}`);
-        res.redirect('/authors');
-    } catch { //never happens ?? :sob:
-        console.error('Error caught in catch block', err);
-        errorMessage : 'Error creating Author';
+        // Check if an author with the same name already exists
+        const existingAuthor = await Author.findOne({ name: req.body.name }) //findOne() = finds existing field, req.body.name compares inputted name w database
+        if (existingAuthor) {
+            // Handle situation where author already exists (e.g., by sending an error message)
+            res.render('authors/new', {
+                author: author,
+                errorMessage: 'Author already exists'
+            })
+        } else {
+            // Save new author if it doesn't already exist
+            const newAuthor = await author.save()
+            //res.redirect(`/authors/${newAuthor.id}`);
+            res.redirect('/authors');
+        }
+    } catch (err) { // if a name is not provided
         res.render('authors/new', {
-            author: author
+            author: author,
+            errorMessage: 'Error creating Author'
         })
     }
 })
