@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-const path = require('path')
-const coverImageBasePath = 'uploads/bookCovers'
 
 const bookSchema = new mongoose.Schema({
     title : {
@@ -23,10 +21,14 @@ const bookSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-    coverImageName : {
-        type: String,
+    coverImage : {
+        type: Buffer, //handles binary data
         required: true
     } , //store the image in the file system
+    coverImageType : {
+        type : String,
+        required : true
+    },
     author: {
         type: mongoose.Schema.Types.ObjectId, //tells mongoose that this references another object in the collection
         required: true,
@@ -38,10 +40,9 @@ const bookSchema = new mongoose.Schema({
  // rules for the data stored in the collection.
 
 bookSchema.virtual('coverImagePath').get(function() { //we don't use an arrow function because we need access to this.
-    if (this.coverImageName != null) {
-        return path.join('/', coverImageBasePath, this.coverImageName)
+    if (this.coverImage != null && this.coverImageType != null) {
+        return `data:${this.coverImageType};charset=utf-8;base64,${this.coverImage.toString('base64')}`
     }
 }) ///derives value from schema
 
  module.exports = mongoose.model('Book', bookSchema) //Book = name of table inside database, bookSchema = defines database
- module.exports.coverImageBasePath = coverImageBasePath
