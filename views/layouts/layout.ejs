@@ -15,15 +15,18 @@
     <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="/javascripts/fileUpload.js"></script>
+    <link rel="stylesheet" href="/stylesheets/main.css">
     <title>Mybrary</title>
 </head>
 <body>
-    <br>
+    <div class="container">
     <%- include('../partials/header.ejs')  %>
+    <div class="inner-container">
     <% if (locals.errorMessage != null)  { %>
     <%- include('../partials/errorMessage.ejs')  %>
 <% } %>
     <%- body %>
-    <br>
+    </div>
+</div>
 </body>
 </html>

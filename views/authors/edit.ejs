@@ -1,4 +1,4 @@
-<h2>Edit Author</h2>
+<h2 class="page-header">Edit Author</h2>
 <form action="/authors/<%=author.id%>?_method=PUT" method="POST"> <!-- tells server that form sends multipart data- this is how we store cover image name (could include a file)-->
     <%- include('_form_fields') %>
      <a href="/authors/<%=author.id %>">Cancel</a> <!-- used for navigation and linking to other web pages or resources (goes back to authors page) -->

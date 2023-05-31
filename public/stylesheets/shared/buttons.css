@@ -1,0 +1,45 @@
+.btn {
+    border: 1px solid black;
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+    font-size: 1.2rem;
+    font-family: 'Gotham Rounded';
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-row {
+    display: flex;
+    align-items: flex-start;
+}
+
+.btn-row > * {
+    margin-left: 1rem;
+}
+
+
+.btn-row > *:first-child {
+    margin-left: 0rem;
+}
+
+.btn-primary {
+    color: darkblue;
+    background-color: cyan;
+}
+
+.btn-primary:hover {
+    color: black;
+    background-color: darkcyan;
+}
+
+
+.btn-danger {
+    color: darkblue;
+    background-color: lightsalmon;
+}
+
+.btn-danger:hover {
+    color: black;
+    background-color: salmon;
+}
