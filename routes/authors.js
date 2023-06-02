@@ -40,9 +40,17 @@ router.post('/', async (req, res) => {
                 errorMessage: 'Author already exists'
             })
         } else {
-            // Save new author if it doesn't already exist
-            const newAuthor = await author.save()
-            res.redirect(`/authors/${newAuthor.id}`);
+            if (req.body.name == '' || req.body.name == ' ') {
+                res.render('authors/new', {
+                    author: author,
+                    errorMessage: 'Error creating Author'
+                })
+            } else {
+                 // Save new author if it doesn't already exist
+                const newAuthor = await author.save()
+                res.redirect(`/authors/${newAuthor.id}`);
+            }
+           
         }
     } catch (err) { // if a name is not provided
         res.render('authors/new', {
